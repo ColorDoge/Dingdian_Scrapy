@@ -9,7 +9,7 @@
 import scrapy
 from scrapy import signals
 import json, codecs
-from dingdian.items import pageItem
+from dingdian.items import pageItem,indexItem 
 
 class DingdianPipeline(object):
     def process_item(self, item, spider):
@@ -20,9 +20,6 @@ class JsonWithUrlPipeline(object):
         self.file = codecs.open('/Crawler/dingdian/dingdian/src/url.json', 'w', encoding='utf-8')
  
     def process_item(self, item, spider):
-        #title = json.dumps("标题："+str(item['title']),ensure_ascii=False)+ "\n"
-        # link = json.dumps("链接："+str(item['url']),ensure_ascii=False)+ "\n"
-        #line = title + link
         self.file.write(item)
         return item
  
@@ -31,14 +28,9 @@ class JsonWithUrlPipeline(object):
         
         
 class TextPipeline(object):
-    def __init__(self):
-        self.file = codecs.open('/Crawler/dingdian/dingdian/src/test.txt', 'a+', encoding='utf-8')
- 
     def process_item(self, item, spider):
-        #title = json.dumps("标题："+str(item['title']),ensure_ascii=False)+ "\n"
-        #link = json.dumps("链接："+str(item['url']),ensure_ascii=False)+ "\n"
-        #line = title + link
-        if isinstance(item, pageItem):
+        self.file = codecs.open('/Crawler/dingdian/dingdian/src/'+str(item['article'])+'.txt','a+', encoding='utf-8')
+        if isinstance(item,pageItem):
            self.file.write(str(item['title'])+"/n")
            self.file.write(str(item['content']))
         pass
