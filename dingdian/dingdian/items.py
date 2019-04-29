@@ -22,9 +22,8 @@ class DingdianItem(scrapy.Item):
     
 class indexItem(scrapy.Item):
     title = scrapy.Field()
-    url = scrapy.Field()
-
 
 class pageItem(scrapy.Item):
+    article = scrapy.Field()
     title = scrapy.Field()
     content = scrapy.Field()
